@@ -17,6 +17,8 @@ class Thumbnail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: this.height,
+      width: this.width,
       decoration: BoxDecoration(
         boxShadow: <BoxShadow>[
           BoxShadow(
@@ -34,13 +36,13 @@ class Thumbnail extends StatelessWidget {
               child: Image.asset(
                 this.backgroundUrl,
                 fit: BoxFit.cover,
-                // height: 300.0,
                 height: this.height,
+                width: this.width,
                 colorBlendMode: BlendMode.srcOver,
                 color: new Color.fromARGB(120, 20, 10, 100),
               )
             ),
-            _getLunchDescription()
+            // _getLunchDescription()
           ],
         ),
       ),

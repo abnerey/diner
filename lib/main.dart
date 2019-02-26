@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:diner/banner/banner.dart';
-import 'package:diner/shared/clips/diagonal-clip.dart';
+import 'package:flutter/rendering.dart';
+import 'package:diner/layout/banner/banner.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:diner/thumbnail/thumbnail.dart';
+import 'package:diner/layout/nav-header/nav-header.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  debugPaintSizeEnabled = false;
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    
     return MaterialApp(
       title: 'Diner',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.orange,
       ),
       home: HomePage(),
     );
@@ -29,24 +32,109 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   double device_height = 0.0;
+  double device_width = 0.0;
 
   @override
   Widget build(BuildContext context) {
     this._changeStatusBarColor();
     this.device_height = MediaQuery.of(context).size.height;
+    this.device_width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Container(
-        height: this.device_height,
+        // height: this.device_height,
         child: Stack(
           children: <Widget>[
-            BannerHeader(
-              thumbnail: Thumbnail(
-                backgroundUrl: 'assets/img/1.jpg',
-                lunchName: 'Arroz Lisboa',
-                height: 300.0,
-              ),
+            Column(
+              children: <Widget>[
+                BannerHeader(
+                  thumbnail: Thumbnail(
+                    backgroundUrl: 'assets/img/1.jpg',
+                    lunchName: 'Arroz Lisboa',
+                    height: 300.0,
+                  ),
+                ),
+                Container(
+                  width: this.device_width,
+                  height: 150.0,
+                  margin:EdgeInsets.symmetric(
+                    horizontal: 10.0,
+                    vertical: 15.0
+                  ),
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.only(
+                          top: 15.0,
+                          right: 10.0,
+                          bottom: 20.0,
+                          left: 15.0
+                        ),
+                        child: Thumbnail(
+                          backgroundUrl: 'assets/img/2.jpg',
+                          lunchName: 'Pizza Artesanal',
+                          height: 120.0,
+                          width: 155.0,
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(
+                          top: 15.0,
+                          right: 10.0,
+                          bottom: 20.0,
+                          left: 15.0
+                        ),
+                        child: Thumbnail(
+                          backgroundUrl: 'assets/img/1.jpg',
+                          lunchName: 'Pizza Artesanal',
+                          height: 120.0,
+                          width: 155.0,
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(
+                          top: 15.0,
+                          right: 10.0,
+                          bottom: 20.0,
+                          left: 15.0
+                        ),
+                        child: Thumbnail(
+                          backgroundUrl: 'assets/img/3.jpeg',
+                          lunchName: 'Alitas Barbacoa',
+                          height: 120.0,
+                          width: 155.0,
+                        ),
+                      ),
+                      /* Thumbnail(
+                        backgroundUrl: 'assets/img/1.jpg',
+                        lunchName: 'Pizza Artesanal',
+                        height: 120.0,
+                        width: 145.0,
+                      ),
+                      Thumbnail(
+                        backgroundUrl: 'assets/img/3.jpeg',
+                        lunchName: 'Alitas Barbacoa',
+                        height: 120.0,
+                        width: 145.0,
+                      ),
+                      Thumbnail(
+                        backgroundUrl: 'assets/img/1.jpg',
+                        lunchName: 'Pizza Artesanal',
+                        height: 120.0,
+                        width: 145.0,
+                      ),
+                      Thumbnail(
+                        backgroundUrl: 'assets/img/1.jpg',
+                        lunchName: 'Pizza Artesanal',
+                        height: 120.0,
+                        width: 145.0,
+                      ), */
+                    ],
+                  ),
+                )
+              ],
             ),
-            _buildHeader(),
+            NavHeader(title: 'DINER APP'),
           ],
         ),
       )
@@ -58,31 +146,4 @@ class _HomePageState extends State<HomePage> {
     FlutterStatusbarcolor.setStatusBarWhiteForeground(true);
   }
 
-  _buildHeader() {
-    return Container(
-      height: 30.0,
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 42.0),
-        child: Row(
-          children: <Widget>[
-            // Icon(Icons.menu, size: 32.0, color: Colors.white),
-            Expanded(
-              child: Center(
-                child: Text(
-                  'DINER APP',
-                  style: const TextStyle(
-                    fontSize: 20.0,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: 'Poppins'
-                  )
-                ),
-              )
-            )
-          ],
-        ),
-      )
-    );
-  }
-  
 }
